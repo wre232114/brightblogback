@@ -1,36 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      
-    </div>
-    <div id="container">
-      <router-view/>
-    </div>
+    <comp-header/>
+    <section id="container">
+      <div id="nav">
+        
+      </div>
+      <div id="content">
+        <router-view/>
+      </div>
+    </section>
+    <comp-footer/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import CompHeader from './components/Header.vue'
+import CompFooter from './components/Footer.vue'
 
 export default Vue.extend({
   components: {
-    Header,
-    Footer
+    CompHeader,
+    CompFooter
   }
 })
 </script>
 
 <style lang="scss">
+#app {
+  #container {
+    overflow: hidden;
+    #nav {
+      float: left;
+      width: 200px;
+      background: #ccc; // 测试用
+      height: 100px; // 测试用
+    }
 
-#nav {
-  float: left;
-  width: 200px;
-  display: flex;
-  flex-flow: column nowrap;
-}
-#container {
-  overflow: hidden;
+    #content {
+      overflow: hidden;
+    }
+  }
 }
 </style>
