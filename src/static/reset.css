@@ -1,0 +1,28 @@
+*:not(html) {
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+ul,
+ol,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+}
