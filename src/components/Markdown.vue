@@ -12,7 +12,7 @@
         <li class="list-item"><button title="无序列表，ctrl+shift+l"><i class="fas fa-list-ul"></i></button></li>
         <li class="list-item"><button title="有序列表，ctrl+shift+u"><i class="fas fa-list-ol"></i></button></li>
         <li class="list-item"><button title="引用，ctrl+shift+q"><i class="fas fa-quote-left"></i></button></li>
-        <li class="list-item"><button title="代码，ctrl+shift+c"><i class="fas fa-code"></i></button></li>
+        <li class="list-item"><button title="代码，ctrl+shift+c" @click="insertCode"><i class="fas fa-code"></i></button></li>
         <li class="list-item"><button title="表格，table+shift+t"><i class="fas fa-table"></i></button></li>
         <li class="list-item"><button title="链接，ctrl+shift+k"><i class="fas fa-link"></i></button></li>
         <li class="list-item"><button title="图片，ctrl+shift+i"><i class="fas fa-image"></i></button></li>
@@ -43,13 +43,13 @@ import 'highlight.js/styles/atom-one-dark.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 // 封装的操作复制粘贴和设置选择的API
-import CopySelection from '../static/CopySelection'
+import RangeSelection from '../static/RangeSelection'
 
 // Set options
 // `highlight` example uses `highlight.js`
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code) {
+  highlight(code) {
     return require('highlight.js').highlightAuto(code).value;
   },
   pedantic: false,
@@ -63,21 +63,26 @@ marked.setOptions({
 
 @Component
 export default class MarkDown extends Vue {
-  preview: string = '';
-  copysel = new CopySelection();
+  public preview: string = '';
+  public rangesel = new RangeSelection();
 
-  handleInput(e: any) {
-    let mark = marked(e.target.innerText)
+  public handleInput(e: any) {
+    const mark = marked(e.target.innerText)
+    const selection = window.getSelection()
     this.preview = mark
   }
-  handleClick() {
-    let editorDom = document.getElementById('editor')
+  public handleClick() {
+    const editorDom = document.getElementById('editor')
     if (editorDom) {
-      this.copysel.setCaretPosition(editorDom, 20)
+      this.rangesel.setCaretPosition(editorDom, 1)
     }
   }
-  mounted() {
-    console.log(this.copysel.selection)
+  public mounted() {
+    // console.log(this.rangesel.selection)
+  }
+  public insertCode() {
+    const content = '```js\n```'
+    this.rangesel.insertContentBefore(content)
   }
 }
 </script>
@@ -145,7 +150,7 @@ $md-editor-options-hover: #999;
 
   .edit-panel-preview {
     resize: horizontal;
-    min-height: 100vh;
+    min-height: 90vh;
     flex: 1;
     background: $color-white;
   }

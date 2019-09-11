@@ -17,6 +17,7 @@
     "trailing-comma": false,
     "semicolon": false,
     "no-unused-expression": false,
+    "whitespace": false,
     "quotemark": [true, "single"]
   }
 }
